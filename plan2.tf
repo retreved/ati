@@ -1,26 +1,3 @@
-terraform {
-required_version = ">= 0.14.0"
-  required_providers {
-    openstack = {
-      source  = "terraform-provider-openstack/openstack"
-      version = "~> 1.53.0"
-    }
-  }
-}
-
-provider "openstack" {
-  auth_url    = "http://internalapicloud1.adamhcm.com:5000"
-  tenant_name = "ADAM_PROD"
-  user_name   = "joe.cairns"
-  password    = ""
-  insecure    = true          # Not recommended for production (security risk)
-}
-
-# Prompt for password.  This can be removed and the password added above.
-variable "openstack_password" {
-  type = string
-  sensitive = true
-}
 
 # Create the anti-affinity server group to be used with this plan
 resource "openstack_compute_servergroup_v2" "production-servergroup" {
@@ -31,9 +8,9 @@ resource "openstack_compute_servergroup_v2" "production-servergroup" {
 # Create ProdMSDBServer3 server
 resource "openstack_compute_instance_v2" "ProdMSDBServer3" {
   name            = "ProdMSDBServer3"
-  image_id        = "a2358cac-e95e-4644-9848-ea04f3aadb11"
-  flavor_id       = "3bf6ae51-4be3-43f6-9b1c-3bd7b0f28034"
-  key_pair        = "prodkey"
+  image_id        = var.image_id
+  flavor_id       = var.flavor_id
+  key_pair        = var.key_name
   security_groups = ["Prod_Ansible", "prod_dbs", "default", "public_ssh", "Prod_Commvault"]
 
 
@@ -42,7 +19,7 @@ resource "openstack_compute_instance_v2" "ProdMSDBServer3" {
   }
 
   network {
-    port_id = "3492acb0-c787-44d4-9275-dff4b2bd3d8a"
+    port = "3492acb0-c787-44d4-9275-dff4b2bd3d8a"
   }
 
   block_device {
@@ -81,9 +58,9 @@ resource "openstack_compute_instance_v2" "ProdMSDBServer3" {
 # Create ProdMSDBServer2 server
 resource "openstack_compute_instance_v2" "ProdMSDBServer2" {
   name            = "ProdMSDBServer2"
-  image_id        = "a2358cac-e95e-4644-9848-ea04f3aadb11"
-  flavor_id       = "3bf6ae51-4be3-43f6-9b1c-3bd7b0f28034"
-  key_pair        = "prodkey"
+  image_id        = var.image_id
+  flavor_id       = var.flavor_id
+  key_pair        = var.key_name
   security_groups = ["Prod_Ansible", "prod_dbs", "default", "public_ssh", "Prod_Commvault"]
 
 
@@ -93,7 +70,7 @@ resource "openstack_compute_instance_v2" "ProdMSDBServer2" {
 
 # Attach floating IP port
   network {
-    port_id = "c289d29f-9b15-410f-b3d7-4598e6438dfb"
+    port = "c289d29f-9b15-410f-b3d7-4598e6438dfb"
   }
 
 # Attach OS volume
@@ -136,9 +113,9 @@ resource "openstack_compute_instance_v2" "ProdMSDBServer2" {
 # Create ProdMSDBServer1 server
 resource "openstack_compute_instance_v2" "ProdMSDBServer1" {
   name            = "ProdMSDBServer1"
-  image_id        = "a2358cac-e95e-4644-9848-ea04f3aadb11"
-  flavor_id       = "3bf6ae51-4be3-43f6-9b1c-3bd7b0f28034"
-  key_pair        = "prodkey"
+  image_id        = var.image_id
+  flavor_id       = var.flavor_id
+  key_pair        = var.key_name
   security_groups = ["Prod_Ansible", "prod_dbs", "default", "public_ssh", "Prod_Commvault"]
 
 
@@ -148,7 +125,7 @@ resource "openstack_compute_instance_v2" "ProdMSDBServer1" {
 
 # Attach floating IP port
   network {
-    port_id = "397dce8d-4a07-4aa6-910e-773e76d6dac7"
+    port = "397dce8d-4a07-4aa6-910e-773e76d6dac7"
   }
 
 # Attach OS volume

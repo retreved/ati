@@ -32,7 +32,7 @@ resource "openstack_compute_instance_v2" "ProdTASrv" {
 
 # Attach flaoting/fixed IP port
   network {
-    port_id = "7c333fe6-1ea7-4b0e-b85e-cdc5b8d0f2e0"
+    port = "7c333fe6-1ea7-4b0e-b85e-cdc5b8d0f2e0"
   }
 
 # Attach OS volume
