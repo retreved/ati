@@ -23,7 +23,9 @@ resource "openstack_compute_instance_v2" "ProdTASrv" {
   image_id        = var.image_id
   flavor_id       = var.flavor_id
   key_pair        = var.key_name
-  security_groups = ["public_web", "public_ssh", "default"]
+# security groups are assigned in the ports that will be attached
+#  security_groups = ["public_web", "public_ssh", "default"]
+
 
 # Add server to anti-affinity group
   scheduler_hints {
@@ -60,7 +62,7 @@ resource "openstack_compute_instance_v2" "ALLDBServer" {
   image_id        = var.image_id
   flavor_id       = var.flavor_id
   key_pair        = var.key_name
-  security_groups = ["Prod_Ansible", "prod_dbs", "default", "public_ssh", "Prod_Commvault"]
+#  security_groups = ["Prod_Ansible", "prod_dbs", "default", "public_ssh", "Prod_Commvault"]
 
 # Add servero to anti-affinity
   scheduler_hints {

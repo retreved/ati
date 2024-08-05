@@ -11,7 +11,7 @@ resource "openstack_compute_instance_v2" "ProdMSDBServer3" {
   image_id        = var.image_id
   flavor_id       = var.flavor_id
   key_pair        = var.key_name
-  security_groups = ["Prod_Ansible", "prod_dbs", "default", "public_ssh", "Prod_Commvault"]
+#  security_groups = ["Prod_Ansible", "prod_dbs", "default", "public_ssh", "Prod_Commvault"]
 
 
   scheduler_hints {
@@ -61,7 +61,7 @@ resource "openstack_compute_instance_v2" "ProdMSDBServer2" {
   image_id        = var.image_id
   flavor_id       = var.flavor_id
   key_pair        = var.key_name
-  security_groups = ["Prod_Ansible", "prod_dbs", "default", "public_ssh", "Prod_Commvault"]
+#  security_groups = ["Prod_Ansible", "prod_dbs", "default", "public_ssh", "Prod_Commvault"]
 
 
   scheduler_hints {
@@ -116,7 +116,7 @@ resource "openstack_compute_instance_v2" "ProdMSDBServer1" {
   image_id        = var.image_id
   flavor_id       = var.flavor_id
   key_pair        = var.key_name
-  security_groups = ["Prod_Ansible", "prod_dbs", "default", "public_ssh", "Prod_Commvault"]
+#  security_groups = ["Prod_Ansible", "prod_dbs", "default", "public_ssh", "Prod_Commvault"]
 
 
   scheduler_hints {
