@@ -1,16 +1,3 @@
-
-# Define variables 
-variable "os_auth_url" 	{"http://internalapicloud1.adamhcm.com:5000"}
-variable "os_project_name"	{"PROD_ADAM"}
-variable "os_region_name"	{"Region1"}
-variable "os_auth_type"		{"password"}
-variable "os_username"		{"joe.cairns"}
-variable "os_password"		{""}
-variable "flavor_id"		{"i3bf6ae51-4be3-43f6-9b1c-3bd7b0f28034"}
-variable "image_id"		{"a2358cac-e95e-4644-9848-ea04f3aadb11"}
-variable "key_pair"		{"prodkey"}
-variable "server_group"		{"production_antiaffinity"}
-
 # Create the anti-affinity server group to be used with this plan
 resource "openstack_compute_servergroup_v2" "production-servergroup" {
   name     = var.server_group

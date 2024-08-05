@@ -1,4 +1,3 @@
-
 # Create the anti-affinity server group to be used with this plan
 resource "openstack_compute_servergroup_v2" "production-servergroup" {
   name     = "ProdDB-antiaffinity"
