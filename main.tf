@@ -1,12 +1,6 @@
-# Create the anti-affinity server groupis to be used with this plan
+# Create the anti-affinity server group to be used with this plan
 resource "openstack_compute_servergroup_v2" "ProductionTA-servergroup" {
   name     = ProductionTA-servergroup
-  policies = ["anti-affinity"]
-}
-
-# Create the anti-affinity server group to be used with this plan
-resource "openstack_compute_servergroup_v2" "productionDB-servergroup" {
-  name     = "ProductionDB-servergroup"
   policies = ["anti-affinity"]
 }
 
@@ -16,6 +10,7 @@ resource "openstack_compute_instance_v2" "ProdTASrv" {
   image_id        = var.image_id
   flavor_id       = var.flavor_id
   key_pair        = var.key_name
+  stop_before_destroy = true
 
 
 # Add server to anti-affinity group
@@ -23,20 +18,19 @@ resource "openstack_compute_instance_v2" "ProdTASrv" {
     group = openstack_compute_servergroup_v2.productionTA-antiaffinity.id
   }
 
-# Attach flaoting/fixed IP port
+# Attach floating/fixed IP port
 # Port already contains secruity groups
   network {
     port = "7c333fe6-1ea7-4b0e-b85e-cdc5b8d0f2e0"
-    delete_on_termination = false
   }
 
 # Attach OS volume
   block_device {
-    uuid                  = "a2358cac-e95e-4644-9848-ea04f3aadb11"
-    source_type           = "image"
-    destination_type      = "local"
+    uuid                  = "9d19ad85-35b0-4b5e-b0fa-b37d50df54e6"
+    source_type           = "volume"
+    destination_type      = "volume"
     boot_index            = 0
-    delete_on_termination = true
+    delete_on_termination = false
   }
 
 # Attach data volume
@@ -55,6 +49,7 @@ resource "openstack_compute_instance_v2" "ALLDBServer" {
   image_id        = var.image_id
   flavor_id       = var.flavor_id
   key_pair        = var.key_name
+  stop_before_destroy = true
 
 # Add server to anti-affinity
   scheduler_hints {
@@ -70,11 +65,11 @@ resource "openstack_compute_instance_v2" "ALLDBServer" {
 
 # Attach boot OS Volume
   block_device {
-    uuid                  = "a2358cac-e95e-4644-9848-ea04f3aadb11"
-    source_type           = "image"
-    destination_type      = "local"
+    uuid                  = "5294e526-d81c-4026-8068-0503adb6a434"
+    source_type           = "volume"
+    destination_type      = "volume"
     boot_index            = 0
-    delete_on_termination = true
+    delete_on_termination = false
   }
 
 # Attach Data volume
@@ -83,6 +78,7 @@ resource "openstack_compute_instance_v2" "ALLDBServer" {
     source_type = "volume"
     destination_type = "volume"
     boot_index=1
+    delete_on_termination = false
   }
 }
 
@@ -92,6 +88,7 @@ resource "openstack_compute_instance_v2" "ProdMSDBServer3" {
   image_id        = var.image_id
   flavor_id       = var.flavor_id
   key_pair        = var.key_name
+  stop_before_destroy = true
 
 
   scheduler_hints {
@@ -102,15 +99,14 @@ resource "openstack_compute_instance_v2" "ProdMSDBServer3" {
 # Port already contains secruity groups
   network {
     port = "3492acb0-c787-44d4-9275-dff4b2bd3d8a"
-    delete_on_termination = false
   }
 
   block_device {
-    uuid                  = "a2358cac-e95e-4644-9848-ea04f3aadb11"
-    source_type           = "image"
-    destination_type      = "local"
+    uuid                  = "699afaea-2b1e-4d1f-bf3a-2b4e47308a12"
+    source_type           = "volume"
+    destination_type      = "volume"
     boot_index            = 0
-    delete_on_termination = true
+    delete_on_termination = false
   }
 
   block_device {
@@ -144,6 +140,7 @@ resource "openstack_compute_instance_v2" "ProdMSDBServer2" {
   image_id        = var.image_id
   flavor_id       = var.flavor_id
   key_pair        = var.key_name
+  stop_before_destroy = true
 
   scheduler_hints {
     group = openstack_compute_servergroup_v2.ProductionDB-servergroup.id
@@ -153,16 +150,15 @@ resource "openstack_compute_instance_v2" "ProdMSDBServer2" {
 # Port already contains secruity groups
   network {
     port = "c289d29f-9b15-410f-b3d7-4598e6438dfb"
-    delete_on_termination = false
   }
 
 # Attach OS volume
   block_device {
-    uuid                  = "a2358cac-e95e-4644-9848-ea04f3aadb11"
-    source_type           = "image"
-    destination_type      = "local"
+    uuid                  = "ac3a0449-3933-43d7-886b-b5ec576339b2"
+    source_type           = "volume"
+    destination_type      = "volume"
     boot_index            = 0
-    delete_on_termination = true
+    delete_on_termination = false
   }
 
 # Attach data volume
@@ -199,7 +195,7 @@ resource "openstack_compute_instance_v2" "ProdMSDBServer1" {
   image_id        = var.image_id
   flavor_id       = var.flavor_id
   key_pair        = var.key_name
-
+  stop_before_destroy = true
 
   scheduler_hints {
     group = openstack_compute_servergroup_v2.ProdDB-antiaffinity.id
@@ -214,11 +210,11 @@ resource "openstack_compute_instance_v2" "ProdMSDBServer1" {
 
 # Attach OS volume
   block_device {
-    uuid                  = "a2358cac-e95e-4644-9848-ea04f3aadb11"
-    source_type           = "image"
-    destination_type      = "local"
+    uuid                  = "f8ad4e59-d259-456b-959e-f49a23bebe7c"
+    source_type           = "volume"
+    destination_type      = "volume"
     boot_index            = 0
-    delete_on_termination = true
+    delete_on_termination = false
   }
 
 # Attach data volume
