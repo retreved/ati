@@ -232,7 +232,7 @@ resource "openstack_compute_instance_v2" "ProdMSDBServer1" {
 
 # Attach data volume
   block_device {
-    uuid = "3a0abab7-2248-4168-b86b-3f2a7d176140"
+    uuid = "eef72826-3543-48cd-a784-25d2ea7f1daf"
     source_type = "volume"
     destination_type = "volume"
     delete_on_termination = false
@@ -241,7 +241,7 @@ resource "openstack_compute_instance_v2" "ProdMSDBServer1" {
 
 # Attach data volume
   block_device {
-    uuid = "3a0abab7-2248-4168-b86b-3f2a7d176140"
+    uuid = "9587a4c1-7885-4b29-bd26-d3086efcdd76"
     source_type = "volume"
     destination_type = "volume"
     delete_on_termination = false
