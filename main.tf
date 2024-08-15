@@ -100,7 +100,7 @@ resource "openstack_compute_instance_v2" "ProdMSDBServer3" {
   network {
     port = "3492acb0-c787-44d4-9275-dff4b2bd3d8a"
   }
-
+# Attach OS drive
   block_device {
     uuid                  = "699afaea-2b1e-4d1f-bf3a-2b4e47308a12"
     source_type           = "volume"
@@ -109,6 +109,7 @@ resource "openstack_compute_instance_v2" "ProdMSDBServer3" {
     delete_on_termination = false
   }
 
+# Attach data volume
   block_device {
     uuid = "c82bc208-56dc-41a3-b984-313df623b80c"
     source_type = "volume"
@@ -117,6 +118,7 @@ resource "openstack_compute_instance_v2" "ProdMSDBServer3" {
     boot_index=1
   }
 
+# Attach data volume
   block_device {
     uuid = "37aeb455-48d8-4e31-b029-7fa4f8c9ec56"
     source_type = "volume"
@@ -125,6 +127,7 @@ resource "openstack_compute_instance_v2" "ProdMSDBServer3" {
     boot_index=2
   }
 
+# Attach data volume
   block_device {
     uuid = "023a2900-cfc0-4579-8026-e1dfb2216ad2"
     source_type = "volume"
