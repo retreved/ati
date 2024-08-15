@@ -7,7 +7,6 @@ resource "openstack_compute_servergroup_v2" "production-antiaffinity" {
 # Create ProdTASrv server
 resource "openstack_compute_instance_v2" "ProdTASrv" {
   name            = "ProdTASrv"
-  image_id        = var.image_id
   flavor_id       = var.flavor_id
   key_pair        = var.key_name
   stop_before_destroy = true
@@ -22,6 +21,10 @@ resource "openstack_compute_instance_v2" "ProdTASrv" {
 # Port already contains secruity groups
   network {
     port = "7c333fe6-1ea7-4b0e-b85e-cdc5b8d0f2e0"
+  }
+
+  network {
+    port = "4f4737fb-1163-40c7-bc98-92720fc6ccd6""
   }
 
 # Attach OS volume
@@ -46,7 +49,6 @@ resource "openstack_compute_instance_v2" "ProdTASrv" {
 # Create AllDBServer server
 resource "openstack_compute_instance_v2" "ALLDBServer" {
   name            = "ALLDBServer"
-  image_id        = var.image_id
   flavor_id       = var.flavor_id
   key_pair        = var.key_name
   stop_before_destroy = true

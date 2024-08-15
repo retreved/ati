@@ -34,3 +34,10 @@ variable "openstack_password" {
   type = string
   sensitive = true
 }
+
+# Create the anti-affinity server group to be used with this plan
+resource "openstack_compute_servergroup_v2" "production-antiaffinity" {
+  name     = "production-antiaffinity"
+  policies = ["anti-affinity"]
+}
+
