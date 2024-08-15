@@ -1,6 +1,6 @@
 # Create the anti-affinity server group to be used with this plan
-resource "openstack_compute_servergroup_v2" "ProductionTA-servergroup" {
-  name     = ProductionTA-servergroup
+resource "openstack_compute_servergroup_v2" "production-antiaffinity" {
+  name     = production-antiaffinity
   policies = ["anti-affinity"]
 }
 
@@ -15,7 +15,7 @@ resource "openstack_compute_instance_v2" "ProdTASrv" {
 
 # Add server to anti-affinity group
   scheduler_hints {
-    group = openstack_compute_servergroup_v2.productionTA-antiaffinity.id
+    group = openstack_compute_servergroup_v2.production-antiaffinity.id
   }
 
 # Attach floating/fixed IP port
@@ -53,7 +53,7 @@ resource "openstack_compute_instance_v2" "ALLDBServer" {
 
 # Add server to anti-affinity
   scheduler_hints {
-    group = openstack_compute_servergroup_v2.productionDB-servergroup.id
+    group = openstack_compute_servergroup_v2.production-antiaffinity.id
   }
 
 # Attach floating/fixed IP port
@@ -92,7 +92,7 @@ resource "openstack_compute_instance_v2" "ProdMSDBServer3" {
 
 
   scheduler_hints {
-    group = openstack_compute_servergroup_v2.ProductionDB-servergroup.id
+    group = openstack_compute_servergroup_v2.production-antiaffinity.id
   }
 
 # Attach floating/fixed IP port
@@ -146,7 +146,7 @@ resource "openstack_compute_instance_v2" "ProdMSDBServer2" {
   stop_before_destroy = true
 
   scheduler_hints {
-    group = openstack_compute_servergroup_v2.ProductionDB-servergroup.id
+    group = openstack_compute_servergroup_v2.production-antiaffinity.id
   }
 
 # Attach floating IP port
@@ -201,7 +201,7 @@ resource "openstack_compute_instance_v2" "ProdMSDBServer1" {
   stop_before_destroy = true
 
   scheduler_hints {
-    group = openstack_compute_servergroup_v2.ProdDB-antiaffinity.id
+    group = openstack_compute_servergroup_v2.production-antiaffinity.id
   }
 
 # Attach floating IP port
