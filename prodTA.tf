@@ -5,7 +5,6 @@ resource "openstack_compute_instance_v2" "ProdTASrv" {
   key_pair        = var.key_name
   stop_before_destroy = true
 
-
 # Add server to anti-affinity group
   scheduler_hints {
     group = openstack_compute_servergroup_v2.production-antiaffinity.id
@@ -18,9 +17,10 @@ resource "openstack_compute_instance_v2" "ProdTASrv" {
   }
 
 # Attach floating IP port
-  network {
-    port = "4f4737fb-1163-40c7-bc98-92720fc6ccd6""
-  }
+# Floating ip port is associated with the fixed IP port, this should not be required
+#  network {
+#    port = "4f4737fb-1163-40c7-bc98-92720fc6ccd6""
+#  }
 
 # Attach OS volume
   block_device {
